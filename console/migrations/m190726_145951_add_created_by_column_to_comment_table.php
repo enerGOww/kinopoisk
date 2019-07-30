@@ -12,7 +12,7 @@ class m190726_145951_add_created_by_column_to_comment_table extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%comment}}', 'parent_id', $this->integer()->defaultValue(0));
+        $this->addColumn('{{%comment}}', 'parent_id', $this->integer()->defaultValue(null));
         $this->addColumn('{{%comment}}', 'created_by', $this->integer());
         // creates index for column `parent_id`
         $this->createIndex(

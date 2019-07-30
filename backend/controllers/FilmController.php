@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\essence\Genre;
 use Yii;
 use common\essence\Film;
 use backend\models\FilmSearch;
@@ -10,6 +11,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\essence\ImageUploader;
 use yii\web\UploadedFile;
+use yii\helpers\ArrayHelper;
+use common\essence\Actor;
 /**
  * FilmController implements the CRUD actions for Film model.
  */
@@ -137,5 +140,41 @@ class FilmController extends Controller
             }
         }
         return $this->render('image', ['model' => $model]);
+    }
+
+    public function actionSetGenre($id)
+    {
+        $film = $this->findModel($id);
+        $selectedGenre = $film->getSelectedGenre(); //
+        $genre = ArrayHelper::map(Genre::find()->all(), 'id', 'description');
+        if(Yii::$app->request->isPost)
+        {
+            $genre = Yii::$app->request->post('genre');
+            $film->saveGenre($genre);
+            return $this->redirect(['view', 'id'=>$film->id]);
+        }
+
+        return $this->render('genre', [
+            'selectedGenre'=>$selectedGenre,
+            'genre'=>$genre
+        ]);
+    }
+
+    public function actionSetActor($id)
+    {
+        $film = $this->findModel($id);
+        $selectedActor = $film->getSelectedActor(); //
+        $actor = ArrayHelper::map(Actor::find()->all(), 'id', 'name');
+        if(Yii::$app->request->isPost)
+        {
+            $actor = Yii::$app->request->post('actor');
+            $film->saveActor($actor);
+            return $this->redirect(['view', 'id'=>$film->id]);
+        }
+
+        return $this->render('actor', [
+            'selectedActor'=>$selectedActor,
+            'actor'=>$actor
+        ]);
     }
 }
