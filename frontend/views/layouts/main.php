@@ -36,9 +36,15 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Profile', 'url' => ['/user/view?id='.Yii::$app->user->id]],
+        ['label' => 'Films', 'url' => ['/film/ ']],
+        ['label' => 'Actors', 'url' => ['/actor/ ']],
+        ['label' => 'Rejeser', 'url' => ['/rejeser/ ']],
+        ['label' => 'Genre', 'url' => ['/genre/ ']],
+//        ['label' => 'Comments', 'url' => ['/comment/ ']],
+//        ['label' => 'Rating', 'url' => ['/world-rating/ ']],
+//        ['label' => 'About', 'url' => ['/site/about']],
+//        ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

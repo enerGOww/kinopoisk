@@ -207,4 +207,29 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function saveImage($fileName)
+    {
+        $this->image= $fileName;
+        return $this->save(false);
+    }
+    public function getImage()
+    {
+        return ($this->image) ? '/uploads/'. $this->image : '/uploads/no-image.png';
+    }
+    private function deleteImage()
+    {
+        $imageModel = new ImageUploader();
+        $imageModel->deleteImage($this->image);
+    }
+    public function beforeDelete()
+    {
+        $this->deleteImage();
+        return parent::beforeDelete();
+    }
+
+    public function getDate()
+    {
+        return date('d M Y', $this->created_at);
+    }
 }

@@ -18,7 +18,7 @@ class FilmSearch extends Film
     {
         return [
             [['id', 'rejeser_id', 'world_rating_id', 'size', 'rating'], 'integer'],
-            [['title', 'country', 'slogan', 'image', 'trailer_link'], 'safe'],
+            [['title', 'country', 'slogan', 'image', 'trailer_link', 'year'], 'safe'],
         ];
     }
 
@@ -69,7 +69,8 @@ class FilmSearch extends Film
             ->andFilterWhere(['like', 'country', $this->country])
             ->andFilterWhere(['like', 'slogan', $this->slogan])
             ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'trailer_link', $this->trailer_link]);
+            ->andFilterWhere(['like', 'trailer_link', $this->trailer_link])
+            ->andFilterWhere(['like', 'year', $this->year]);
 
         return $dataProvider;
     }

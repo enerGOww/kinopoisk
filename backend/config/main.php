@@ -46,6 +46,13 @@ return [
             ],
         ],
 
+        'urlManagerFrontend' => [
+            'class' => 'yii\web\urlManager',
+            'baseUrl' => Yii::getAlias('@frontend') . '/web/uploads/',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+        ],
+
     ],
     'params' => $params,
 ];

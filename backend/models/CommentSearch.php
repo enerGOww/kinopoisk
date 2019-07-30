@@ -17,7 +17,7 @@ class CommentSearch extends Comment
     public function rules()
     {
         return [
-            [['id', 'rejeser_id', 'film_id', 'actor_id'], 'integer'],
+            [['id', 'rejeser_id', 'film_id', 'actor_id', 'parent_id', 'created_by'], 'integer'],
             [['text'], 'safe'],
         ];
     }
@@ -62,6 +62,8 @@ class CommentSearch extends Comment
             'rejeser_id' => $this->rejeser_id,
             'film_id' => $this->film_id,
             'actor_id' => $this->actor_id,
+            'parent_id' => $this->parent_id,
+            'created_by' => $this->created_by,
         ]);
 
         $query->andFilterWhere(['like', 'text', $this->text]);

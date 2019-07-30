@@ -8,7 +8,8 @@ use backend\models\FilmSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use common\essence\ImageUploader;
+use yii\web\UploadedFile;
 /**
  * FilmController implements the CRUD actions for Film model.
  */
@@ -123,5 +124,18 @@ class FilmController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionSetImage($id)
+    {
+        $model = new ImageUploader;
+        if (Yii::$app->request->isPost){
+            $article = $this->findModel($id);
+            $file = UploadedFile::getInstance($model, 'image');
+            if($article->saveImage($model->uploadFile($file, $article->image))){
+                return $this->redirect(['view', 'id' => $article->id]);
+            }
+        }
+        return $this->render('image', ['model' => $model]);
     }
 }

@@ -8,6 +8,8 @@ use backend\models\ActorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use common\essence\ImageUploader;
 
 /**
  * ActorController implements the CRUD actions for Actor model.
@@ -123,5 +125,18 @@ class ActorController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionSetImage($id)
+    {
+        $model = new ImageUploader;
+        if (Yii::$app->request->isPost){
+            $article = $this->findModel($id);
+            $file = UploadedFile::getInstance($model, 'image');
+            if($article->saveImage($model->uploadFile($file, $article->image))){
+                return $this->redirect(['view', 'id' => $article->id]);
+            }
+        }
+        return $this->render('image', ['model' => $model]);
     }
 }

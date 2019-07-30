@@ -8,6 +8,8 @@ use backend\models\RejeserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use common\essence\ImageUploader;
 
 /**
  * RejeserController implements the CRUD actions for Rejeser model.
@@ -123,5 +125,18 @@ class RejeserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionSetImage($id)
+    {
+        $model = new ImageUploader;
+        if (Yii::$app->request->isPost){
+            $article = $this->findModel($id);
+            $file = UploadedFile::getInstance($model, 'image');
+            if($article->saveImage($model->uploadFile($file, $article->image))){
+                return $this->redirect(['view', 'id' => $article->id]);
+            }
+        }
+        return $this->render('image', ['model' => $model]);
     }
 }

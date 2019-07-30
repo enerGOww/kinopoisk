@@ -39,6 +39,7 @@ AppAsset::register($this);
         ['label' => 'Profile', 'url' => ['/user/view?id='.Yii::$app->user->id]],
         ['label' => 'Films', 'url' => ['/film/ ']],
         ['label' => 'Actors', 'url' => ['/actor/ ']],
+        ['label' => 'Rejeser', 'url' => ['/rejeser/ ']],
         ['label' => 'Genre', 'url' => ['/genre/ ']],
         ['label' => 'Comments', 'url' => ['/comment/ ']],
         ['label' => 'Rating', 'url' => ['/world-rating/ ']],
