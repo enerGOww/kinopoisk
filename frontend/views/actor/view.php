@@ -1,34 +1,79 @@
 <?php
 
+use frontend\widgets\GetGeresForActorRejeser;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use frontend\widgets\SykaWidget\SykaWidget;
 use frontend\widgets\blyatWidget\BlyatWidget;
+use frontend\widgets\GetAllFilmsForActor;
+use frontend\widgets\BestFilms;
 
 /* @var $this yii\web\View */
 /* @var $model common\essence\Actor */
 
-$this->title = $model->id;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Actors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="actor-view">
+    <div class="" style="display:flex;flex-direction: row;">
+        <div style="margin-right: 40px">
+            <?= Html::img($model->getImage(), ['height' => '400px', 'width' => '275px', 'alt' => 'bad connection']) ?>
+        </div>
+        <div style="width: 70%">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+            <h1><?= Html::encode($this->title) ?></h1>
 
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'year',
-            'place',
-            'height',
-            'reward',
-            'image',
+            'year' =>[
+                'label' => 'Дата рождения',
+                'value' => $model->year,
+            ],
+            'place'=>[
+                'label' => 'Страна',
+                'value' => $model->place,
+            ],
+            'height'=>[
+                'label' => 'Рост',
+                'value' => $model->height,
+            ],
+            [
+                'label' => 'Жанры',
+                'value' => GetGeresForActorRejeser::widget(['allFilms' => $model->filmActors, 'flag' => 1]),
+                'format' => 'raw',
+            ],
+            [
+                'label' => 'Фильмы',
+                'value' => GetAllFilmsForActor::widget(['allFilms' => $model->filmActors]),
+                'format' => 'raw',
+            ],
+            [
+                'label' => 'Всего фильмов',
+                'value' => count($model->filmActors),
+                'format' => 'raw',
+            ],
+            'reward'=>[
+                'label' => 'Награды',
+                'value' => $model->reward,
+            ],
         ],
     ]) ?>
+        </div>
+    </div>
+
+    <br>
+
+    <div style="border: #0f0f0f solid 1px; background-color: lightgray">
+        <h4 style="text-align: center;">Лучшие фильмы:</h4>
+    </div>
+    <p style="border: #0f0f0f solid 1px; background-color: gray; text-align: center">
+        <?= BestFilms::widget(['allFilms' => $model->filmActors, 'flag' => 1]) ?>
+    </p>
+
 
     <?php if (Yii::$app->session->hasFlash('commentUpdate')): ?>
         <div class="alert alert-success alert-dismissable">

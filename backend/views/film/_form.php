@@ -18,15 +18,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'slogan')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'rejeser_id')->textInput() ?>
-
-    <?= $form->field($model, 'world_rating_id')->textInput() ?>
-
     <?= $form->field($model, 'size')->textInput() ?>
 
     <?= $form->field($model, 'rating')->textInput() ?>
-
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'trailer_link')->textInput(['maxlength' => true]) ?>
 

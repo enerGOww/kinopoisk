@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="film-view">
     <div class="" style="display:flex;flex-direction: row;">
         <div style="margin-right: 20px">
-            <?= Html::img($model->getImage(), ['width' => '250px', 'height' => '250px', 'alt' => 'bad connection']) ?>
+            <?= Html::img($model->getImage(), ['height' => '400px', 'alt' => 'bad connection']) ?>
             <h2><?= Html::a('Ссылка на трейлер', Url::to($model->trailer_link)) ?></h2>
         </div>
         <div style="width: 70%">
@@ -73,9 +73,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div style="border: #0f0f0f solid 1px; background-color: lightgray">
         <h4 style="text-align: center;">Похожие фильмы:</h4>
     </div>
-    <div style="border: #0f0f0f solid 1px; background-color: gray">
+    <p style="border: #0f0f0f solid 1px; background-color: gray; text-align: center">
         <?= LikeThisFilmWidget::widget(['allGenres' => $model->filmGenres, 'filmId' => $model->id]) ?>
-    </div>
+    </p>
 
     <div style="margin-top: 50px;width: 100%;overflow:hidden ">
     <?php if (Yii::$app->session->hasFlash('commentUpdate')): ?>

@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\essence\Genre;
+use common\essence\Rejeser;
 use Yii;
 use common\essence\Film;
 use backend\models\FilmSearch;
@@ -175,6 +176,24 @@ class FilmController extends Controller
         return $this->render('actor', [
             'selectedActor'=>$selectedActor,
             'actor'=>$actor
+        ]);
+    }
+
+    public function actionSetRejeser($id)
+    {
+        $film = $this->findModel($id);
+        $selectedRejeser = $film->rejeser_id;
+        $rejesers = ArrayHelper::map(Rejeser::find()->all(), 'id', 'name');
+        if(Yii::$app->request->isPost){
+            $rejeser = Yii::$app->request->post('rejeser');
+            if($film->saveRejeser($rejeser)) {
+                return $this->redirect(['view', 'id' => $film->id]);
+            }
+        }
+        return $this->render('rejeser', [
+            'film' => $film,
+            'selectedRejeser' => $selectedRejeser,
+            'rejesers' => $rejesers,
         ]);
     }
 }

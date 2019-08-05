@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
  * @property int $rejeser_id
  * @property int $world_rating_id
  * @property int $size
- * @property int $rating
+ * @property double $rating
  * @property string $image
  * @property string $trailer_link
  * @property string $year
@@ -42,7 +42,8 @@ class Film extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rejeser_id', 'world_rating_id', 'size', 'rating'], 'integer'],
+            [['rejeser_id', 'world_rating_id', 'size'], 'integer'],
+            [['rating'], 'double'],
             [['title', 'country', 'slogan', 'image', 'trailer_link', 'year'], 'string', 'max' => 255],
             [['rejeser_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rejeser::className(), 'targetAttribute' => ['rejeser_id' => 'id']],
             [['world_rating_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorldRating::className(), 'targetAttribute' => ['world_rating_id' => 'id']],
@@ -182,7 +183,13 @@ class Film extends \yii\db\ActiveRecord
     }
     public function clearCurrentActor()
     {
-        FilmActor::deleteAll(['actor_id'=>$this->id]);
+        FilmActor::deleteAll(['film_id'=>$this->id]);
+    }
+
+    public function saveRejeser($rejeser)
+    {
+        $this->rejeser_id = $rejeser;
+        return $this->save(false);
     }
 
 }

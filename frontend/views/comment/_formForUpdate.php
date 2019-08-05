@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
-/* @var $model common\models\Comment */
+/* @var $model common\essence\Comment */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
 
 
-    <?= $form->field($model, 'text')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'text')->textarea(['rows' => 2])->label(false) ?>
 
     <?= $form->field($model, 'id')->hiddenInput(['value' => $model->id])->label(false); ?>
 

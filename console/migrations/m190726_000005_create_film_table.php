@@ -20,7 +20,7 @@ class m190726_000005_create_film_table extends Migration
             'rejeser_id' => $this->integer(),
             'world_rating_id' => $this->integer(),
             'size' => $this->integer(),
-            'rating' => $this->integer(),
+            'rating' => $this->double(),
             'image' => $this->string(),
             'trailer_link' => $this->string(),
         ]);
