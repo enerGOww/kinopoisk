@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 <div class="comment-form">
 
     <?php $form = ActiveForm::begin([
-        'action' => '/comment/createchild'
+        'action' => '/comment/create-child'
     ]); ?>
 
 

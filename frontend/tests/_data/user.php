@@ -2,6 +2,7 @@
 
 return [
     [
+        'id' => '1',
         'username' => 'okirlin',
         'auth_key' => 'iwTNae9t34OmnK6l4vT4IeaTk-YWI2Rv',
         'password_hash' => '$2y$13$CXT0Rkle1EMJ/c1l5bylL.EylfmQ39O5JlHJVFpNn618OUS1HwaIi',
@@ -9,8 +10,10 @@ return [
         'created_at' => '1391885313',
         'updated_at' => '1391885313',
         'email' => 'brady.renner@rutherford.com',
+        'image' => 'test-1-image.jpg',
     ],
     [
+        'id' => '2',
         'username' => 'troy.becker',
         'auth_key' => 'EdKfXrx88weFMV0vIxuTMWKgfK2tS3Lp',
         'password_hash' => '$2y$13$g5nv41Px7VBqhS3hVsVN2.MKfgT3jFdkXEsMC4rQJLfaMa7VaJqL2',
@@ -19,8 +22,10 @@ return [
         'updated_at' => '1391885313',
         'email' => 'nicolas.dianna@hotmail.com',
         'status' => '0',
+        'image' => 'test-1-image.jpg',
     ],
     [
+        'id' => '3',
         'username' => 'test.test',
         'auth_key' => 'O87GkY3_UfmMHYkyezZ7QLfmkKNsllzT',
         //Test1234
@@ -30,8 +35,10 @@ return [
         'created_at' => '1548675330',
         'updated_at' => '1548675330',
         'verification_token' => '4ch0qbfhvWwkcuWqjN8SWRq72SOw1KYT_1548675330',
+        'image' => 'test-1-image.jpg',
     ],
     [
+        'id' => '4',
         'username' => 'test2.test',
         'auth_key' => '4XXdVqi3rDpa_a6JH6zqVreFxUPcUPvJ',
         //Test1234
@@ -41,5 +48,6 @@ return [
         'created_at' => '1548675330',
         'updated_at' => '1548675330',
         'verification_token' => 'already_used_token_1548675330',
+        'image' => 'test-1-image.jpg',
     ],
 ];

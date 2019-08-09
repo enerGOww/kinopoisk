@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Set image', ['set-image', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Set Genre', ['set-genre', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Set Rejeser', ['set-rejeser', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Set World rating', ['set-world-rating', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Set Actors', ['set-actor', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',

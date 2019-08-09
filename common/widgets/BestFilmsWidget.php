@@ -1,13 +1,12 @@
 <?php
 
 
-namespace frontend\widgets;
+namespace common\widgets;
 
 use yii\base\Widget;
 use common\essence\Film;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
-class BestFilms extends Widget
+class BestFilmsWidget extends Widget
 {
     public $allFilms;
     public $flag;

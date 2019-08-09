@@ -192,4 +192,10 @@ class Film extends \yii\db\ActiveRecord
         return $this->save(false);
     }
 
+    public function saveWorldRating($worldRating)
+    {
+        $this->world_rating_id = $worldRating;
+        return $this->save(false);
+    }
+
 }

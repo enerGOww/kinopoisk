@@ -71,10 +71,9 @@ class CommentController extends Controller
         ]);
     }
 
-    public function actionCreatechild()
+    public function actionCreateChild()
     {
         $model = new Comment();
-//        $model->parent_id = Yii::$app->request->post()['Comment']['parent_id'];
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('commentCreate', 'Вы добавили комментарий');
             if($model->actor_id ==null && $model->rejeser_id ==null) {

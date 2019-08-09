@@ -1,5 +1,5 @@
 <?php
-namespace frontend\widgets\getGenreWidget;
+namespace common\widgets;
 
 use common\essence\Genre;
 use yii\base\Widget;

@@ -1,12 +1,12 @@
 <?php
-namespace frontend\widgets;
+namespace common\widgets;
 
 use \yii\base\Widget;
 use common\essence\Film;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-class GetAllFilmsForActor extends Widget
+class GetAllFilmsForActorWidget extends Widget
 {
     public $allFilms;
 

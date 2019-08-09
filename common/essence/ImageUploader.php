@@ -33,6 +33,9 @@ class ImageUploader extends Model
         return parent::beforeDelete();
     }
 
+
+
+
     for controller:
 
      public function actionSetImage($id)
@@ -48,11 +51,16 @@ class ImageUploader extends Model
         return $this->render('image', ['model' => $model]);
     }
 
+
+
+
     for view:
 
     <?= Html::a('Set image', ['set-image', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
     <?= Html::img($model->getImage(), ['alt' => 'bad connection']) ?>
+
+
 
     for index:
 

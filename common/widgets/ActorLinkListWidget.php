@@ -1,12 +1,12 @@
 <?php
 
-namespace frontend\widgets\actorLinkList;
+namespace common\widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use common\essence\Actor;
-class ActorLinkList extends Widget
+class ActorLinkListWidget extends Widget
 {
     public $allActors;
 

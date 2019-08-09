@@ -1,17 +1,15 @@
 <?php
 
 
-namespace frontend\widgets;
+namespace common\widgets;
 
 use yii\base\Widget;
-use common\essence\FilmGenre;
-use common\essence\Genre;
-use yii\helpers\ArrayHelper;
-use \yii\db\Expression;
 use yii\helpers\Html;
 use yii\helpers\Url;
-
-class GetGeresForActorRejeser extends Widget
+use common\repositories\FilmGenreRepository;
+use common\services\FilmGenreService;
+use common\repositories\GenreRepository;
+class GetGeresForActorRejeserWidget extends Widget
 {
     public $allFilms;
     public $flag;
@@ -30,9 +28,9 @@ class GetGeresForActorRejeser extends Widget
             }
         }
 
-        $genresFromDatabase = FilmGenre::find()->where(['film_id' => $filmsId])->all();
-        $genrePriorety = array_count_values(ArrayHelper::getColumn($genresFromDatabase, 'genre_id'));
-        $genres = Genre::find()->where(['id' => $genrePriorety])->orderBy([new Expression('FIELD (id, '. implode(',', $genrePriorety). ')')])->all();
+        $genresFromDatabase = FilmGenreRepository::getRecordsForThisFilms($filmsId); //берём все записи фильмов из таблице связей
+        $genrePriorety = FilmGenreService::uniteByGenreId($genresFromDatabase); // ассоциативный массив genre_id => кол-во повторений
+        $genres = GenreRepository::getGenresForActorRejeserFromFilms($genrePriorety); //модели жанров отсортированные
         for($i=0;$i<count($genres) && $i<5;$i++){
             echo Html::a($genres[$i]->description, Url::to('/genre/view?id='.$genres[$i]->id)).' ';
         }

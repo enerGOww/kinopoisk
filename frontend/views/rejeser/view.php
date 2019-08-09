@@ -1,12 +1,12 @@
 <?php
 
-use frontend\widgets\BestFilms;
-use frontend\widgets\blyatWidget\BlyatWidget;
-use frontend\widgets\GetAllFilmsForRejeser;
-use frontend\widgets\SykaWidget\SykaWidget;
+use common\widgets\BestFilmsWidget;
+use common\widgets\GetAllFilmsForRejeserWidget;
+use common\widgets\CommentWidget;
+use common\widgets\CommentFormWidget;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use \frontend\widgets\GetGeresForActorRejeser;
+use common\widgets\GetGeresForActorRejeserWidget;
 
 /* @var $this yii\web\View */
 /* @var $model common\essence\Rejeser */
@@ -43,12 +43,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label' => 'Жанры',
-                'value' => GetGeresForActorRejeser::widget(['allFilms' => $model->films, 'flag' => 2]),
+                'value' => GetGeresForActorRejeserWidget::widget(['allFilms' => $model->films, 'flag' => 2]),
                 'format' => 'raw',
             ],
             [
                 'label' => 'Фильмы',
-                'value' => GetAllFilmsForRejeser::widget(['allFilms' => $model->films]),
+                'value' => GetAllFilmsForRejeserWidget::widget(['allFilms' => $model->films]),
                 'format' => 'raw',
             ],
             [
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h4 style="text-align: center;">Лучшие фильмы:</h4>
     </div>
     <p style="border: #0f0f0f solid 1px; background-color: gray; text-align: center">
-        <?= BestFilms::widget(['allFilms' => $model->films, 'flag' => 2]) ?>
+        <?= BestFilmsWidget::widget(['allFilms' => $model->films, 'flag' => 2]) ?>
     </p>
 
     <?php if (Yii::$app->session->hasFlash('commentUpdate')): ?>
@@ -88,9 +88,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endif; ?>
 
     <?php if (!Yii::$app->user->isGuest){
-        echo BlyatWidget::widget(['rejeserId' => $model->id,]);
+        echo CommentFormWidget::widget(['rejeserId' => $model->id,]);
     } ?>
 
-    <?= SykaWidget::widget(['model' => $model, 'which' => 3]); ?>
+    <?= CommentWidget::widget(['model' => $model, 'which' => 3]); ?>
 
 </div>

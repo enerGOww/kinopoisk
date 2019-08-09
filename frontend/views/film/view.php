@@ -2,14 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use frontend\widgets\SykaWidget\SykaWidget;
-use frontend\widgets\blyatWidget\BlyatWidget;
-use common\essence\Rejeser;
+use common\widgets\CommentWidget;
+use common\widgets\CommentFormWidget;
 use yii\helpers\Url;
-use common\essence\WorldRating;
-use frontend\widgets\getGenreWidget\GetGenreWidget;
-use frontend\widgets\actorLinkList\ActorLinkList;
-use frontend\widgets\likeThisFilmWidget\LikeThisFilmWidget;
+use common\widgets\GetGenreWidget;
+use common\widgets\ActorLinkListWidget;
+use common\widgets\LikeThisFilmWidget;
 /* @var $this yii\web\View */
 /* @var $model common\essence\Film */
 
@@ -43,14 +41,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 ['attribute' => 'rejeser_id',
                     'label' => 'Режисёр',
-                    'value' => function($data){
-                        return Html::a(Rejeser::findOne($data->rejeser_id)->name, Url::to("../rejeser/view?id=".$data->rejeser_id));
-                    },
+                    'value' =>
+                        Html::a(($model->rejeser->name), Url::to("../rejeser/view?id=".$model->rejeser_id)),
+
                     'format' => 'raw',
                 ],
                 ['attribute' => 'world_rating_id',
                     'label' => 'Рейтинг MPAA',
-                    'value' => Html::img(WorldRating::findOne($model->world_rating_id)->getImage(), ['width' => '20px', 'height' => '20px', 'alt' => 'bad connection']),
+                    'value' => Html::img(($model->worldRating->getImage()), ['width' => '20px', 'height' => '20px', 'alt' => 'bad connection']),
                     'format' => 'raw',
                 ],
                 [
@@ -60,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'label' => 'Актёры',
-                    'value' => ActorLinkList::widget(['allActors' => $model->filmActors]),
+                    'value' => ActorLinkListWidget::widget(['allActors' => $model->filmActors]),
                     'format' => 'raw',
                 ],
                 'size',
@@ -94,10 +92,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     if (!Yii::$app->user->isGuest){
-       echo BlyatWidget::widget(['filmId' => $model->id,]);
+       echo CommentFormWidget::widget(['filmId' => $model->id,]);
     } ?>
     </div>
 
-    <?= SykaWidget::widget(['model' => $model, 'which' => 1]); ?>
+    <?= CommentWidget::widget(['model' => $model, 'which' => 1]); ?>
 
 </div>

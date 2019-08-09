@@ -1,11 +1,11 @@
 <?php
-namespace frontend\widgets\SykaWidget;
+namespace common\widgets;
 
 use yii\base\Widget;
 use Yii;
 use common\essence\Comment;
 
-class SykaWidget extends Widget
+class CommentWidget extends Widget
 {
     public $model;
     public $which;

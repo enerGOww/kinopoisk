@@ -10,7 +10,7 @@ use \yii\widgets\ActiveForm;
 ?>
 
 <div style="margin: 10px; background-color: lightgray; padding: 10px;">
-    <div style="float: left; margin-right: 20px;"><?= Html::img(User::findOne($model->created_by)->getImage(), [
+    <div style="float: left; margin-right: 20px;"><?= Html::img($model->createdBy->getImage(), [
             'height' => '50px',
             'alt' => 'bad connection',
             'width' => '50px',
@@ -19,7 +19,7 @@ use \yii\widgets\ActiveForm;
             ],
         ]) ?></div>
     <b><?php
-        print_r  (User::findOne($model->created_by)->username);
+        print_r  ($model->createdBy->username);
         ?></b>
     <br>
     <?= $model->text ?>

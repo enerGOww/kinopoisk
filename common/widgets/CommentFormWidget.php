@@ -1,12 +1,12 @@
 <?php
 
-namespace frontend\widgets\blyatWidget;
+namespace common\widgets;
 
 use yii\base\Widget;
 use Yii;
 use common\essence\Comment;
 
-class BlyatWidget extends Widget
+class CommentFormWidget extends Widget
 {
     public $filmId = null;
     public $actorId = null;

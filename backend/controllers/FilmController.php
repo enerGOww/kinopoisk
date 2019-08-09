@@ -2,8 +2,9 @@
 
 namespace backend\controllers;
 
-use common\essence\Genre;
-use common\essence\Rejeser;
+use common\repositories\GenreRepository;
+use common\repositories\RejeserRepository;
+use common\repositories\WorldRatingRepository;
 use Yii;
 use common\essence\Film;
 use backend\models\FilmSearch;
@@ -13,7 +14,7 @@ use yii\filters\VerbFilter;
 use common\essence\ImageUploader;
 use yii\web\UploadedFile;
 use yii\helpers\ArrayHelper;
-use common\essence\Actor;
+use common\repositories\ActorRepository;
 /**
  * FilmController implements the CRUD actions for Film model.
  */
@@ -147,7 +148,7 @@ class FilmController extends Controller
     {
         $film = $this->findModel($id);
         $selectedGenre = $film->getSelectedGenre(); //
-        $genre = ArrayHelper::map(Genre::find()->all(), 'id', 'description');
+        $genre = ArrayHelper::map(GenreRepository::getAllGenre(), 'id', 'description');
         if(Yii::$app->request->isPost)
         {
             $genre = Yii::$app->request->post('genre');
@@ -165,7 +166,7 @@ class FilmController extends Controller
     {
         $film = $this->findModel($id);
         $selectedActor = $film->getSelectedActor(); //
-        $actor = ArrayHelper::map(Actor::find()->all(), 'id', 'name');
+        $actor = ArrayHelper::map(ActorRepository::getAllActors(), 'id', 'name');
         if(Yii::$app->request->isPost)
         {
             $actor = Yii::$app->request->post('actor');
@@ -183,7 +184,7 @@ class FilmController extends Controller
     {
         $film = $this->findModel($id);
         $selectedRejeser = $film->rejeser_id;
-        $rejesers = ArrayHelper::map(Rejeser::find()->all(), 'id', 'name');
+        $rejesers = ArrayHelper::map(RejeserRepository::getAllRejesers(), 'id', 'name');
         if(Yii::$app->request->isPost){
             $rejeser = Yii::$app->request->post('rejeser');
             if($film->saveRejeser($rejeser)) {
@@ -194,6 +195,24 @@ class FilmController extends Controller
             'film' => $film,
             'selectedRejeser' => $selectedRejeser,
             'rejesers' => $rejesers,
+        ]);
+    }
+
+    public function actionSetWorldRating($id)
+    {
+        $film = $this->findModel($id);
+        $selectedWorldRating = $film->world_rating_id;
+        $worldRatings = ArrayHelper::map(WorldRatingRepository::getIAllWorldRatings(), 'id', 'name');
+        if(Yii::$app->request->isPost){
+            $worldRating = Yii::$app->request->post('rejeser');
+            if($film->saveRejeser($worldRating)) {
+                return $this->redirect(['view', 'id' => $film->id]);
+            }
+        }
+        return $this->render('worldRating', [
+            'film' => $film,
+            'selectedWorldRating' => $selectedWorldRating,
+            'worldRatings' => $worldRatings,
         ]);
     }
 }
