@@ -20,6 +20,26 @@ use common\repositories\ActorRepository;
  */
 class FilmController extends Controller
 {
+
+    private $actorRepository;
+    private $genreRepository;
+    private $worldRatingRepository;
+    private $rejeserRepository;
+
+    public function __construct($id, $module,
+        ActorRepository $actorRepository,
+        GenreRepository $genreRepository,
+        WorldRatingRepository $worldRatingRepository,
+        RejeserRepository $rejeserRepository,
+        $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $this->actorRepository = $actorRepository;
+        $this->genreRepository = $genreRepository;
+        $this->worldRatingRepository = $worldRatingRepository;
+        $this->rejeserRepository = $rejeserRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -135,10 +155,10 @@ class FilmController extends Controller
     {
         $model = new ImageUploader;
         if (Yii::$app->request->isPost){
-            $article = $this->findModel($id);
+            $film = $this->findModel($id);
             $file = UploadedFile::getInstance($model, 'image');
-            if($article->saveImage($model->uploadFile($file, $article->image))){
-                return $this->redirect(['view', 'id' => $article->id]);
+            if($film->saveImage($model->uploadFile($file, $film->image))){
+                return $this->redirect(['view', 'id' => $film->id]);
             }
         }
         return $this->render('image', ['model' => $model]);
@@ -148,7 +168,7 @@ class FilmController extends Controller
     {
         $film = $this->findModel($id);
         $selectedGenre = $film->getSelectedGenre(); //
-        $genre = ArrayHelper::map(GenreRepository::getAllGenre(), 'id', 'description');
+        $genre = ArrayHelper::map($this->genreRepository->getAllGenre(), 'id', 'description');
         if(Yii::$app->request->isPost)
         {
             $genre = Yii::$app->request->post('genre');
@@ -166,7 +186,7 @@ class FilmController extends Controller
     {
         $film = $this->findModel($id);
         $selectedActor = $film->getSelectedActor(); //
-        $actor = ArrayHelper::map(ActorRepository::getAllActors(), 'id', 'name');
+        $actor = ArrayHelper::map($this->actorRepository->getAllActors(), 'id', 'name');
         if(Yii::$app->request->isPost)
         {
             $actor = Yii::$app->request->post('actor');
@@ -184,7 +204,7 @@ class FilmController extends Controller
     {
         $film = $this->findModel($id);
         $selectedRejeser = $film->rejeser_id;
-        $rejesers = ArrayHelper::map(RejeserRepository::getAllRejesers(), 'id', 'name');
+        $rejesers = ArrayHelper::map($this->rejeserRepository->getAllRejesers(), 'id', 'name');
         if(Yii::$app->request->isPost){
             $rejeser = Yii::$app->request->post('rejeser');
             if($film->saveRejeser($rejeser)) {
@@ -202,7 +222,7 @@ class FilmController extends Controller
     {
         $film = $this->findModel($id);
         $selectedWorldRating = $film->world_rating_id;
-        $worldRatings = ArrayHelper::map(WorldRatingRepository::getIAllWorldRatings(), 'id', 'name');
+        $worldRatings = ArrayHelper::map($this->worldRatingRepository->getAllWorldRatings(), 'id', 'name');
         if(Yii::$app->request->isPost){
             $worldRating = Yii::$app->request->post('rejeser');
             if($film->saveRejeser($worldRating)) {

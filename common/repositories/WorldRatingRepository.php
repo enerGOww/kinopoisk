@@ -6,7 +6,7 @@ namespace common\repositories;
 use common\essence\WorldRating;
 class WorldRatingRepository
 {
-    public function getIAllWorldRatings ()
+    public function getAllWorldRatings ()
     {
         return WorldRating::find()->all();
     }

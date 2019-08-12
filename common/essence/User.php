@@ -1,6 +1,7 @@
 <?php
 namespace common\essence;
 
+use common\traits\ImageUploaderTrait;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -25,6 +26,8 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    use ImageUploaderTrait;
+
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
@@ -206,26 +209,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
-    }
-
-    public function saveImage($fileName)
-    {
-        $this->image= $fileName;
-        return $this->save(false);
-    }
-    public function getImage()
-    {
-        return ($this->image) ? '/uploads/'. $this->image : '/uploads/no-image.png';
-    }
-    private function deleteImage()
-    {
-        $imageModel = new ImageUploader();
-        $imageModel->deleteImage($this->image);
-    }
-    public function beforeDelete()
-    {
-        $this->deleteImage();
-        return parent::beforeDelete();
     }
 
     public function getDate()

@@ -5,6 +5,9 @@ namespace common\repositories;
 
 use common\essence\Genre;
 use yii\db\Expression;
+use common\essence\Film;
+use common\essence\FilmGenre;
+use yii\helpers\ArrayHelper;
 
 class GenreRepository
 {
@@ -23,5 +26,12 @@ class GenreRepository
     public function getAllGenre()
     {
         return Genre::find()->all();
+    }
+
+    public function getFilmsWithGenre($id)
+    {
+        $arr = FilmGenre::find()->where(['genre_id' => $id])->all();
+        $arr1 = ArrayHelper::getColumn($arr, 'film_id');
+        return Film::find()->where(['id' => $arr1]);
     }
 }

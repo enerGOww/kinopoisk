@@ -39,14 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'rating',
             'country',
             'year',
-//            'slogan',
-//            'rejeser_id',
-//            'world_rating_id',
-//            'size',
-//            'trailer_link',
-//            'id',
-
-
         ],
     ]); ?>
 

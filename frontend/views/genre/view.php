@@ -1,12 +1,15 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use common\widgets\GridForFilmsByGenreIdWidget;
+
+
 /* @var $model common\essence\Genre */
 
-$this->title = $model->id;
+$this->title = $model->description;
 $this->params['breadcrumbs'][] = ['label' => 'Genres', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -15,12 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'description',
-        ],
-    ]) ?>
+    <?= GridForFilmsByGenreIdWidget::widget(['genreId' => $model->id]) ?>
+
 
 </div>
