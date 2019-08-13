@@ -53,7 +53,7 @@ class CommentController extends Controller
         $model = new Comment();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('commentCreate', 'Вы добавили комментарий');
+            Yii::$app->session->setFlash('comment', 'Вы добавили комментарий');
 
             if($model->actor_id ==null && $model->rejeser_id ==null) {
                 return $this->redirect(['../film/view?id=' . $model->film_id]);
@@ -75,7 +75,7 @@ class CommentController extends Controller
     {
         $model = new Comment();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('commentCreate', 'Вы добавили комментарий');
+            Yii::$app->session->setFlash('comment', 'Вы добавили комментарий');
             if($model->actor_id ==null && $model->rejeser_id ==null) {
                 return $this->redirect(['../film/view?id=' . $model->film_id]);
             }
@@ -103,7 +103,7 @@ class CommentController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('commentUpdate', 'Вы отредактировали комментарий');
+            Yii::$app->session->setFlash('comment', 'Вы отредактировали комментарий');
             if($model->actor_id ==null && $model->rejeser_id ==null) {
                 return $this->redirect(['../film/view?id=' . $model->film_id]);
             }

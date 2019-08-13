@@ -21,6 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div style="margin-right: 20px">
             <?= Html::img($model->getImage(), ['height' => '400px', 'alt' => 'bad connection']) ?>
             <h2><?= Html::a('Ссылка на трейлер', Url::to($model->trailer_link)) ?></h2>
+            <?= Html::a('Добавить в избранное', ['add-to-favorites', 'id' => $model->id], [
+                'class' => 'btn btn-primary',
+                'data' => [
+                    'confirm' => 'Добавить в избранное?',
+                    'method' => 'post',
+                ],
+            ]) ?>
         </div>
         <div style="width: 70%">
             <h1><?= Html::encode($this->title) ?></h1>
@@ -68,6 +75,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
     </div>
+    <?php if (Yii::$app->session->hasFlash('comment')): ?>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            <?= Yii::$app->session->getFlash('comment') ?>
+        </div>
+    <?php endif; ?>
     <div style="border: #0f0f0f solid 1px; background-color: lightgray">
         <h4 style="text-align: center;">Похожие фильмы:</h4>
     </div>
@@ -76,19 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <div style="margin-top: 50px;width: 100%;overflow:hidden ">
-    <?php if (Yii::$app->session->hasFlash('commentUpdate')): ?>
-        <div class="alert alert-success alert-dismissable">
-            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-            <?= Yii::$app->session->getFlash('commentUpdate') ?>
-        </div>
-    <?php endif; ?>
 
-    <?php if (Yii::$app->session->hasFlash('commentCreate')): ?>
-        <div class="alert alert-success alert-dismissable">
-            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-            <?= Yii::$app->session->getFlash('commentCreate') ?>
-        </div>
-    <?php endif; ?>
 
     <?php
     if (!Yii::$app->user->isGuest){

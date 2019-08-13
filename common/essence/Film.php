@@ -112,6 +112,12 @@ class Film extends \yii\db\ActiveRecord
         return $this->hasMany(FilmGenre::className(), ['film_id' => 'id']);
     }
 
+    public function getGenre()
+    {
+        return $this->hasMany(Genre::className(), ['id' => 'genre_id'])
+            ->viaTable('film_genre', ['film_id' => 'id']);
+    }
+
     public function getSelectedGenre()
     {
         $selectedIds = $this->getGenre()->select('id')->asArray()->all();

@@ -9,15 +9,21 @@ use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
-
-class GridForFilmsByGenreIdWidget extends Widget
+use common\repositories\UserRepository;
+class GridForFilmsByIdWidget extends Widget
 {
-    public $genreId;
+    public $id;
+    public $flag;
 
     public function run()
     {
-        $query = GenreRepository::getFilmsWithGenre($this->genreId);
-        $films = new ActiveDataProvider(['query' => $query]);
+        if($this->flag==1){
+            $query = GenreRepository::getFilmsWithGenre($this->id);
+            $films = new ActiveDataProvider(['query' => $query]);
+        } elseif ($this->flag==2) {
+            $query = UserRepository::getFavoriteFilms($this->id);
+            $films = new ActiveDataProvider(['query' => $query]);
+        }
 
         return
             GridView::widget([

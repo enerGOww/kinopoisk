@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use common\essence\FilmUser;
+use common\services\FilmUserService;
 use Yii;
 use common\essence\Film;
 use frontend\models\FilmSearch;
@@ -14,6 +16,14 @@ use yii\filters\VerbFilter;
  */
 class FilmController extends Controller
 {
+    private $filmUserService;
+
+    public function __construct($id, $module,FilmUserService $filmUserService, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $this->filmUserService = $filmUserService;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -62,17 +72,12 @@ class FilmController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionAddToFavorites($id)
     {
-        $model = new Film();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (!Yii::$app->user->isGuest) {
+            $this->filmUserService->saveFavoriteFilm($id, Yii::$app->user->id);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['view', 'id' => $id]);
     }
 
     /**
@@ -95,19 +100,7 @@ class FilmController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing Film model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
-    }
 
     /**
      * Finds the Film model based on its primary key value.

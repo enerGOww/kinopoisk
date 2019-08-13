@@ -1,10 +1,8 @@
 <?php
 
 
-use yii\grid\GridView;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use common\widgets\GridForFilmsByGenreIdWidget;
+use common\widgets\GridForFilmsByIdWidget;
 
 
 /* @var $model common\essence\Genre */
@@ -18,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= GridForFilmsByGenreIdWidget::widget(['genreId' => $model->id]) ?>
+    <?= GridForFilmsByIdWidget::widget(['id' => $model->id, 'flag' => 1]) ?>
 
 
 </div>
